@@ -1,0 +1,67 @@
+
+```
+module logic_gates(
+    input a,
+    input b,
+    output and_out,
+    output or_out,
+    output not_out
+);
+```
+1. Implement the logic gates:
+```
+assign and_out = a & b;
+assign or_out = a | b;
+assign not_out = ~a;
+endmodule
+```
+*Adders:*
+
+1. Create a new Verilog file (e.g., `adder.v`) and define the module:
+```
+module adder(
+    input [3:0] a,
+    input [3:0] b,
+    output [3:0] sum,
+    output carry_out
+);
+```
+1. Implement the adder:
+```
+assign sum = a + b;
+assign carry_out = (a[3] & b[3]) | (a[2] & b[2] & (a[1] | b[1])) | (a[1] & b[1] & (a[0] | b[0]));
+endmodule
+```
+*Multiplexers:*
+
+1. Create a new Verilog file (e.g., `mux.v`) and define the module:
+```
+module mux(
+    input [3:0] a,
+    input [3:0] b,
+    input sel,
+    output [3:0] out
+);
+```
+1. Implement the multiplexer:
+```
+assign out = sel ? b : a;
+endmodule
+```
+*Simulation:*
+
+1. Create a testbench file (e.g., `tb_logic_gates.v`) to simulate the logic gates:
+```
+module tb_logic_gates;
+reg a, b;
+wire and_out, or_out, not_out;
+
+logic_gates lg(.a(a), .b(b), .and_out(and_out), .or_out(or_out), .not_out(not_out));
+
+initial begin
+    a = 0; b = 0; #10;
+    a = 0; b = 1; #10;
+    a = 1; b = 0; #10;
+    a = 1; b = 1; #10;
+end
+endmodule
